@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title> Login</title>
+	<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+	<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<!--<script src="js/boostrap.min.js"></script>-->
+	<script src="js/vue.js"></script>
+	<script src="https://smtpjs.com/v3/smtp.js"></script>
+	<style>
+		body, html {
+			height: 100%;
+			background-repeat: no-repeat;
+			background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
+		}
+		.card-container.card {
+			max-width: 350px;
+			padding: 40px 40px;
+		}
+
+		.btn {
+			font-weight: 700;
+			height: 36px;
+			-moz-user-select: none;
+			-webkit-user-select: none;
+			user-select: none;
+			cursor: default;
+		}
+
+		/*
+		* Card component
+		*/
+		.card {
+			background-color: #F7F7F7;
+			/* just in case there no content*/
+			padding: 20px 25px 30px;
+			margin: 0 auto 25px;
+			margin-top: 50px;
+			/* shadows and rounded borders */
+			-moz-border-radius: 2px;
+			-webkit-border-radius: 2px;
+			border-radius: 2px;
+			-moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+			-webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+			box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+		}
+
+		.profile-img-card {
+			width: 96px;
+			height: 96px;
+			margin: 0 auto 10px;
+			display: block;
+			-moz-border-radius: 50%;
+			-webkit-border-radius: 50%;
+			border-radius: 50%;
+		}
+
+		/*
+		 * Form styles
+		 */
+		.profile-name-card {
+			font-size: 16px;
+			font-weight: bold;
+			text-align: center;
+			margin: 10px 0 0;
+			min-height: 1em;
+		}
+
+		.reauth-email {
+			display: block;
+			color: #404040;
+			line-height: 2;
+			margin-bottom: 10px;
+			font-size: 14px;
+			text-align: center;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			-moz-box-sizing: border-box;
+			-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+
+		.form-signin #inputUserName,
+		.form-signin #inputPassword {
+			direction: ltr;
+			height: 44px;
+			font-size: 16px;
+		}
+
+		.form-signin input[type=email],
+		.form-signin input[type=password],
+		.form-signin input[type=text],
+		.form-signin button {
+			width: 100%;
+			display: block;
+			margin-bottom: 10px;
+			z-index: 1;
+			position: relative;
+			-moz-box-sizing: border-box;
+			-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+
+		.form-signin .form-control:focus {
+			border-color: rgb(104, 145, 162);
+			outline: 0;
+			-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
+			box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
+		}
+
+		.btn.btn-signin {
+			/*background-color: #4d90fe; */
+			background-color: rgb(104, 145, 162);
+			/* background-color: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));*/
+			padding: 0px;
+			font-weight: 700;
+			font-size: 14px;
+			height: 36px;
+			-moz-border-radius: 3px;
+			-webkit-border-radius: 3px;
+			border-radius: 3px;
+			border: none;
+			-o-transition: all 0.218s;
+			-moz-transition: all 0.218s;
+			-webkit-transition: all 0.218s;
+			transition: all 0.218s;
+		}
+
+		.btn.btn-signin:hover,
+		.btn.btn-signin:active,
+		.btn.btn-signin:focus {
+			background-color: rgb(12, 97, 33);
+		}
+
+		.forgot-password {
+			color: rgb(104, 145, 162);
+		}
+
+		.forgot-password:hover,
+		.forgot-password:active,
+		.forgot-password:focus{
+			color: rgb(12, 97, 33);
+		}
+		
+		/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+	</style>
+</head>
+<body>
+	<div class="container">
+        <div class="card card-container">
+            <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
+            <img id="profile-img" class="profile-img-card" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+            <p id="profile-name" class="profile-name-card"></p>
+            <form class="form-signin">
+                <span id="reauth-email" class="reauth-email"></span>
+                <input type="text" id="inputUserName" class="form-control" placeholder="Username" required autofocus>
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                <div id="remember" class="checkbox">
+                    <label>
+                        <input type="checkbox" value="remember-me"> Remember yono
+                    </label>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="button" id="btn-login">Sign in</button>
+            </form><!-- /form -->
+            <a href="#" class="forgot-password">
+                <p id="app">{{message}}</p>
+            </a>
+        </div><!-- /card-container -->
+    </div><!-- /container -->
+	<!--<div id="map"></div>
+			<script>
+				var map;
+				function initMap() {
+					map = new google.maps.Map(document.getElementById('map'), {
+						center: {lat: -34.397, lng: 150.644},
+						zoom: 8
+					});
+				}
+			</script>
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDq9zaXIkDv8lc17OgfaqVFDp9RZU9Lg2o&callback=initMap" async defer></script>-->
+	<!-- The core Firebase JS SDK is always required and must be listed first -->
+	<script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script>
+	<!-- TODO: Add SDKs for Firebase products that you want to use
+		https://firebase.google.com/docs/web/setup#config-web-app -->
+
+	<script>
+	// Your web app's Firebase configuration
+		var firebaseConfig = {
+		apiKey: "AIzaSyCdkC1Ex4imxSPiwH9eoixEiFr421DqEwc",
+		authDomain: "datasourcewedding.firebaseapp.com",
+		databaseURL: "https://datasourcewedding.firebaseio.com",
+		projectId: "datasourcewedding",
+		storageBucket: "datasourcewedding.appspot.com",
+		messagingSenderId: "233096767553",
+		appId: "1:233096767553:web:dba1cb4249c70b7d"
+		};
+	
+	firebase.initializeApp(firebaseConfig);
+	$("#btn-login").click(function(){
+		//new_data(document.getElementById("inputUserName").innerHTML, document.getElementById("inputPassword").innerHTML, 1);
+		firebase.database().ref('users/' + 'yono').set({
+			username: $("#inputUserName").val(),
+			password: $("#inputPassword").val()
+		});
+	});
+	
+	function new_data(name,password,key){
+		firebase.database().ref('users/' + key).set({
+			username: name,
+			password: email
+		});
+	}
+	
+	function update_data(name,password,key){
+		database.ref('users/' + key).update({
+		username: name,
+		email: email,
+		profile_picture : pic
+		});
+	}
+	
+	function remove_data(){
+		database.ref().remove();
+	}
+	
+	function read_data(database){
+		var commentsRef = database.ref('post-comments/' + 1);
+		commentsRef.on('child_added', function(data) {
+			//addCommentElement(postElement, data.key, data.val().text, data.val().author);
+		});
+
+		commentsRef.on('child_changed', function(data) {
+			//setCommentValues(postElement, data.key, data.val().text, data.val().author);
+		});
+
+		commentsRef.on('child_removed', function(data) {
+			//deleteComment(postElement, data.key);
+		});
+	}
+	</script>
+</body>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#btn-login").click(function(){
+			var rawFile = new XMLHttpRequest();
+			rawFile.open("GET", 'user.txt', false);
+			rawFile.onreadystatechange = function ()
+			{
+				if(rawFile.readyState === 4){
+					if(rawFile.status === 200 || rawFile.status == 0){
+						var allText = JSON.parse(rawFile.responseText);
+						if(allText.UserName.toLowerCase() == $("#inputUserName").val().toLowerCase() && allText.Password == $("#inputPassword").val()) 
+							alert("Anda Adalah" +allText.UserName+ "!!! Mantap Gan!!!");
+						else
+							alert("UserName/Password salah. Coba lagi!!!");
+					}
+				}
+			}
+			rawFile.send(null);
+	    });
+		
+		var app = new Vue({
+			el: '#app',
+			data: {
+				message: 'Forgot the password?'
+			}
+		});
+		
+		$("#app").click(function(){
+			Email.send({
+				Host : "smtp.elasticemail.com",
+				Username : "vengefoldjrstar@gmail.com",
+				Password : "a5a816e6-b240-45e0-995a-f936c41205f1",
+				//SecureToken : "a5a816e6-b240-45e0-995a-f936c41205f1",
+				To : 'andri.priyono@sci.ui.ac.id',
+				//To : 'vengefoldjrstar@gmail.com',
+				From : "vengefoldjrstar@gmail.com",
+				Subject : "This is the subject",
+				Body : "<p style='color:green'>Hallo cuyyyyy!!!</p>"
+				}).then(
+					message => alert("Your Message Has Been sent!!! Open your email Now... ")
+					);
+		});
+	})
+	
+	function getQueryString(){
+		var vars = [], hash;
+		var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+		for(var i = 0; i < hashes.length; i++)
+		{
+			hash = hashes[i].split('=');
+			vars.push(hash[0]);
+			vars[hash[0]] = hash[1];
+		}
+    return vars;
+	}
+</script>
+</html>

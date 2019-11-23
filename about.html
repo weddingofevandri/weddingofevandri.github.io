@@ -56,12 +56,6 @@
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
 	<script src="https://smtpjs.com/v3/smtp.js"></script>
-	<!-- The core Firebase JS SDK is always required and must be listed first -->
-	<script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script>
-	<!-- TODO: Add SDKs for Firebase products that you want to use
-		https://firebase.google.com/docs/web/setup#config-web-app -->
 
 	</head>
 	<body>
@@ -78,9 +72,19 @@
 					</div>
 					<div class="col-xs-10 text-right menu-1">
 						<ul>
-							<li class="active"><a href="index.html">Beranda</a></li>
+							<li><a href="index.html">Beranda</a></li>
 							<li><a href="portfolio.html">Foto</a></li>
-							<li><a href="about.html">Undangan</a></li>
+							<!--<li class="has-dropdown">
+								<a href="blog.html">Blog</a>
+								<ul class="dropdown">
+									<li><a href="#">Web Design</a></li>
+									<li><a href="#">eCommerce</a></li>
+									<li><a href="#">Branding</a></li>
+									<li><a href="#">API</a></li>
+								</ul>
+							</li>-->
+							<li class="active"><a href="about.html">Undangan</a></li>
+							<!--<li><a href="contact.html">Contact</a></li>-->
 							<li class="btn-cta" data-toggle="modal" data-target="#login" style="cursor:pointer;"><a><span>Konfirmasi Kehadiran</span></a></li>
 						</ul>
 					</div>
@@ -89,7 +93,7 @@
 			</div>
 		</div>
 	</nav>
-
+	
 	<header id="fh5co-header" class="fh5co-cover js-fullheight" role="banner">
 		<div class="overlay"></div>
 		<div class="container">
@@ -105,7 +109,64 @@
 			</div>
 		</div>
 	</header>
-	
+	<hr style="border-top:3px dashed"/>
+	<div id="fh5co-wireframe">
+		<div class="container">
+			<!--<div class="row animate-box">
+				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+					<h2>Location</h2>
+				</div>
+			</div>-->
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
+					<blockquote>
+					<p>Maha Suci Allah yang telah menciptakan makhluknya berpasang-pasangan.<br/>Ya Allah, dengan segala kerendahan hati, perkenankanlah kami.</p>
+					<br/>
+					<h1 style="margin-bottom:0px">Eva Harvina</h1>
+					<p style="font-size:14px">Putri Tunggal Bapak Suharno & Ibu Casmonah</p>
+					<h1>&</h1>
+					<h1 style="margin-bottom:0px">Andri Priyono</h1>
+					<p style="font-size:14px">Putra Kedua Bapak H.Leman & Ibu Hj.Sakiyem</p>
+					<br/>
+					<p>Untuk melaksanakan syariat agama-Mu, dalam membentuk ikatan keluarga sakinah, mawaddah, warahmah.</p>
+					<br/>
+					<p>Akad Nikah insyaallah akan diselenggarakan pada :</p>
+					<p>Hari Jumat, 29 November 2019<br/>Pukul 07.00 WIB<br/>Di Kediaman Mempelai Wanita<br/>Dk.Widari, Limbangan, Kec. Karanganyar, Pekalongan</p>
+					<br/>
+					<p>Dan Resepsi akan diselenggarakan pada :</p>
+					<p>Hari Sabtu, 14 Desember 2019<br/>Pukul 19.00 - 21.00 WIB<br/>Di Gedung Balai Makarti MuktiTama, Departemen Tenaga Kerja dan Transmigrasi<br/>Jl. TMP Kalibata No.17, Rawajati, Kec. Pancoran, Jakarta Selatan</p>
+					</blockquote>
+					<br/>
+					<h2>Gmaps</h2>
+					<div id="maps"><img src="images/balaimakarti.jpg" style="width:100%;height:auto;border:1px solid #ddd;border-radius:4px;box-shadow: 0 0 1px 1px rgba(0, 140, 186, 0.5)" /></div>
+					<script>
+						document.getElementById('maps').addEventListener('click',function(){
+							window.open('https://www.google.com/maps/place/Balai+Makarti+Muktitama/@-6.2549384,106.8481675,17z/data=!3m1!4b1!4m5!3m4!1s0x2e69f3b4881c5b61:0x8dd71b9a303f542!8m2!3d-6.2549384!4d106.8503562', '_blank');
+						});
+					</script>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--<div id="fh5co-wireframe">
+		<div class="container">
+			<div class="row animate-box">
+				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+					<h2>Versi Andri</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-7 animate-box">
+					<blockquote>
+					<p>Pertama kali saya ketemu di kantor pertama saya di PT. Magkna sebuah vendor IT kecil namun disinilah perjalanan cinta saya dimulai. Pertama kali dia masuk kantor sekitar awal September.</p>
+					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia, there live the blind texts. </p>
+					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia, there live the blind texts. far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia, there live the blind texts. </p>
+					</blockquote>
+				</div>
+			</div>
+		</div>
+	</div>-->
 	<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -117,11 +178,11 @@
 						<div class="form-group">
 							<label class="control-label col-md-3" for="umail"><b>Email : </b></label>
 							<div class="col-md-7">
-								<input type="text" class="form-control" placeholder="Enter Username" id="umail" name="umail" required>
+								<input type="text" class="form-control" placeholder="Enter Email" id="umail" name="umail" required>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="control-label col-md-3" for="psw"><b>Hadir : </b></label>
+							<label class="control-label col-md-3" for="psw"><b>Password : </b></label>
 							<div class="col-md-7">
 								<div id="psw" style="padding-top:7px">
 									<input type="radio" name="editList" id="yes" value="yes"/>
@@ -140,7 +201,7 @@
 				<div class="modal-footer">
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
-							<button type="button" class="btn btn-default" aria-label="Close" onclick="onTestMail();" >Konfirmasi Hadir</button>
+							<button type="button" class="btn btn-default" aria-label="Close" onclick="onSentEmail();" >Konfirmasi Hadir</button>
 							<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Cancel</button>
 						</div>
 					</div>
@@ -148,7 +209,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<footer id="fh5co-footer" role="contentinfo">
 		<div class="container">
 
@@ -162,7 +223,6 @@
 
 		</div>
 	</footer>
-	
 	</div>
 
 	<div class="gototop js-top">
