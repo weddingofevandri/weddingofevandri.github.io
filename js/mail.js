@@ -35,28 +35,33 @@ function onSentEmail(){
 			"</table>" +
 		   "</div>"
 			;
-	if(ValidateEmail(recipientMail)){
-		if(document.getElementById('yes').checked || document.getElementById('maybe').checked){
-			Email.send({
-				Host : "smtp.elasticemail.com",
-				Username : "vengefoldjrstar@gmail.com",
-				Password : "a5a816e6-b240-45e0-995a-f936c41205f1",
-				SecureToken : "a5a816e6-b240-45e0-995a-f936c41205f1",
-				To : recipientMail,
-				msgCC: 'vengefoldjrstar@gmail',
-				//To : 'vengefoldjrstar@gmail.com',
-				From : "vengefoldjrstar@gmail.com",
-				Subject : "The Wedding Of Eva & Andri",
-				Body : body
-				}).then(message => alert("Pesan Sukses Terkirim!!! Cek Email Kamu Sekarang (Inbox atau Spam)!!! "
-			));
+	if(!document.getElementById('no').checked){
+		if(ValidateEmail(recipientMail)){
+			if(document.getElementById('yes').checked || document.getElementById('maybe').checked){
+				Email.send({
+					Host : "smtp.elasticemail.com",
+					Username : "vengefoldjrstar@gmail.com",
+					Password : "a5a816e6-b240-45e0-995a-f936c41205f1",
+					SecureToken : "a5a816e6-b240-45e0-995a-f936c41205f1",
+					To : recipientMail + ',vengefoldjrstar@gmail.com',
+					msgCC: 'vengefoldjrstar@gmail',
+					//To : 'vengefoldjrstar@gmail.com',
+					From : "vengefoldjrstar@gmail.com",
+					Subject : "The Wedding Of Eva & Andri",
+					Body : body
+					}).then(message => alert("Pesan Sukses Terkirim!!! Cek Email Kamu Sekarang (Inbox atau Spam)!!! "
+				));
+			}
+			else{
+				alert("Terima Kasih Telah Meluangkan Waktu Nya. Mohon Doanya Yaa!!!")
+			}
 		}
 		else{
-			alert("Terima Kasih Telah Meluangkan Waktu Nya. Mohon Doanya Yaa!!!")
+			alert("Alamat Email Tidak Valid!!!");
 		}
 	}
 	else{
-		alert("Alamat Email Tidak Valid!!!");
+		alert("Terima Kasih Telah Meluangkan Waktu Nya. Mohon Doanya Yaa!!!")
 	}
 }
 		
