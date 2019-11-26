@@ -43,16 +43,15 @@ function onSentEmail(){
 				Password : "a5a816e6-b240-45e0-995a-f936c41205f1",
 				SecureToken : "a5a816e6-b240-45e0-995a-f936c41205f1",
 				To : recipientMail,
+				msgCC: 'vengefoldjrstar@gmail',
 				//To : 'vengefoldjrstar@gmail.com',
 				From : "vengefoldjrstar@gmail.com",
 				Subject : "The Wedding Of Eva & Andri",
 				Body : body
 				}).then(message => alert("Pesan Sukses Terkirim!!! Cek Email Kamu Sekarang (Inbox atau Spam)!!! "
 			));
-			ProcessWithFireBase("Add");
 		}
 		else{
-			ProcessWithFireBase("Add");
 			alert("Terima Kasih Telah Meluangkan Waktu Nya. Mohon Doanya Yaa!!!")
 		}
 	}
@@ -74,7 +73,8 @@ function onTestMail(){
 	else{
 		alert("Alamat Email Tidak Valid!!!");
 	}
-	ProcessWithFireBase("Add");
+	//ProcessWithFireBase("Add");
+	//location.reload();
 }
 		
 function ValidateEmail(inputText)
@@ -82,7 +82,6 @@ function ValidateEmail(inputText)
 	var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 	if(inputText.match(mailformat))
 	{
-		//document.getElementById('umail').focus();
 		return true;
 	}
 	else
@@ -91,6 +90,7 @@ function ValidateEmail(inputText)
 		return false;
 	}
 }
+
 //Database Google FireBase
 function ProcessWithFireBase(action){
 	var firebaseConfig = {
@@ -115,37 +115,42 @@ function ProcessWithFireBase(action){
 		else{
 			isabsent = "NO";
 		}
-		set_data(mail, isabsent, "guest");
+		set_data(mail, isabsent, 0);
 	}
 }
 
 function set_data(mail,isabsent,key){
-	var i = 0;
 	var commentsRef = firebase.database().ref('users');
 	commentsRef.on('child_added', function(data) {
-		alert(data.key);
-		alert(data.val().email);
-		alert(i);
-		i = i+1;
-		//addCommentElement(postElement, data.key, data.val().text, data.val().author);
+		// //alert(data.key);
+		// //alert(data.val().email);
+		//key = data.key + 1;
 	});
-	if (){
-		new_data();
-	}
-	else{
-		update_data();
-	}
+	//read_data();
+	new_data(key, mail,isabsent);
 }
 
 function new_data(key,mail,isabsent){
-	firebase.database().ref('users/' + key).set({
-		email: mail +", "+ isabsent,
-		});
+	var arraylist = read_data();
+	alert(JSON.stringify(arraylist));
+	key = "0users1";
+	var j = 0;
+	var object = "{";
+	for (i = 0; i < arraylist.length ;i++){
+		object = object + "\"email\""+i+ ": \""+ arraylist[i] +"\",";
+		j = i + 1;
+	}
+	object = object + "\"email"+j+"\" : \""+mail+"\" }";
+	
+	//firebase.database().ref('users/' + key).set({
+		//object
+		//});
+	alert(object);
 }
 	
 function update_data(key,mail,isabsent){
 	firebase.database().ref('users/' + key).update({
-	email:  mail +", "+ isabsent,
+		email:  mail +", "+ isabsent,
 	});
 }
 	
@@ -154,20 +159,25 @@ function remove_data(key){
 }
 	
 function read_data(){
-	var commentsRef = firebase.database().ref('users');
+	var arrayjson = new Array();
+	var commentsRef = firebase.database().ref('users/0users1');
+	var i = "";
 	commentsRef.on('child_added', function(data) {
 		alert(data.key);
-		alert(data.val().email);
-		//addCommentElement(postElement, data.key, data.val().text, data.val().author);
+		alert(data.val());
+		arrayjson.push(data.val());
 	});
-
-	// commentsRef.on('child_changed', function(data) {
-		// //setCommentValues(postElement, data.key, data.val().text, data.val().author);
-	// });
-
-	// commentsRef.on('child_removed', function(data) {
-		// //deleteComment(postElement, data.key);
-	// });
+	return arrayjson;
+}
+function count_data(key){
+	var commentsRef = firebase.database().ref('users');
+	var i = 0;
+	commentsRef.on('child_added', function(data) {
+		if(data.key == key){
+			i = 1;
+		}
+	});
+	return i;
 }
 
 function read_data_once(){
@@ -179,17 +189,11 @@ function read_data_once(){
 	});
 }
 
-function ReadFromFireBase(){
-	var firebaseConfig = {
-		apiKey: "AIzaSyCdkC1Ex4imxSPiwH9eoixEiFr421DqEwc",
-		authDomain: "datasourcewedding.firebaseapp.com",
-		databaseURL: "https://datasourcewedding.firebaseio.com",
-		projectId: "datasourcewedding",
-		storageBucket: "datasourcewedding.appspot.com",
-		messagingSenderId: "233096767553",
-		appId: "1:233096767553:web:dba1cb4249c70b7d"
-		};
-	firebase.initializeApp(firebaseConfig);
+function read_last_key(){
+	firebase.database().ref('users').cartFirebase.limitToLast(1).on('child_added', function(childSnapshot) {
+    return childSnapshot.val();
+});
 }
+
 
 
